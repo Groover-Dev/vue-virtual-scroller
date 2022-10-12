@@ -691,6 +691,10 @@
       emitUpdate: {
         type: Boolean,
         default: false
+      },
+      skipHover: {
+        type: Boolean,
+        default: false
       }
     }),
     data: function data() {
@@ -1311,7 +1315,7 @@
               {
                 key: view.nr.id,
                 staticClass: "vue-recycle-scroller__item-view",
-                class: { hover: _vm.hoverKey === view.nr.key },
+                class: { hover: !_vm.skipHover && _vm.hoverKey === view.nr.key },
                 style: _vm.ready
                   ? {
                       transform:
@@ -1324,10 +1328,10 @@
                   : null,
                 on: {
                   mouseenter: function($event) {
-                    _vm.hoverKey = view.nr.key;
+                    !_vm.skipHover && (_vm.hoverKey = view.nr.key);
                   },
                   mouseleave: function($event) {
-                    _vm.hoverKey = null;
+                    !_vm.skipHover && (_vm.hoverKey = null);
                   }
                 }
               },
